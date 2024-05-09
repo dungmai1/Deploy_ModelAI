@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Input</title>
+</head>
+<body>
+
+<form id="imageForm">
+    <h1>Tìm kiếm hình ảnh liên quan:</h1>
+    <label for="img">Select image:</label>
+    <input type="file" id="img" name="img" accept="image/*" onchange="previewImage(event)">
+    <br>
+    <img id="preview" src="" alt="Image Preview" style="max-width: 100%; max-height: 200px;">
+    <br>
+    <input type="submit">
+</form>
+
+<script>
+function previewImage(event) {
+    var input = event.target;
+    var preview = document.getElementById('preview');
+
+    var reader = new FileReader();
+    reader.onload = function(){
+        preview.src = reader.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+}
+</script>
+
+</body>
+</html>
