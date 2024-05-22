@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Input</title>
+    <meta charset="UTF-8">
+    <title>Rendering Dynamic Images Using Flask</title>
 </head>
 <body>
-
-<form id="imageForm">
-    <h1>Tìm kiếm hình ảnh liên quan:</h1>
-    <label for="img">Select image:</label>
-    <input type="file" id="img" name="img" accept="image/*" onchange="previewImage(event)">
-    <br>
-    <img id="preview" src="" alt="Image Preview" style="max-width: 100%; max-height: 200px;">
-    <br>
-    <input type="submit">
+<form action="{{ url_for('upload_file') }}" enctype="multipart/form-data" method="POST">
+    <input name="img" type="file"/>
+    <input type="submit"/>
 </form>
-
-<script>
-function previewImage(event) {
-    var input = event.target;
-    var preview = document.getElementById('preview');
-
-    var reader = new FileReader();
-    reader.onload = function(){
-        preview.src = reader.result;
-    };
-    reader.readAsDataURL(input.files[0]);
-}
-</script>
-
+ 
+<div class='result_part'>
+    <div class='result_title'><b>Kết quả nhận diện</b></div>
+    <div class='result_id'>{{ msg }}</div>
+    {% if image_default %}
+    <img style="max-width:560px; border-radius:1rem" src="{{image_default}}"
+         alt="User Image">
+    {% endif %}
+    {% if image_cropt %}
+    <img style="max-width:560px; border-radius:1rem" src="{{image_cropt}}"
+         alt="User Image">
+    {% endif %}
+</div>
 </body>
 </html>
